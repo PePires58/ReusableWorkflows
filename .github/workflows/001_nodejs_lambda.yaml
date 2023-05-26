@@ -33,11 +33,16 @@ jobs:
             echo "skipping unit tests"
           fi
 
+      - name: Zip Artifacts
+        run: |
+          zip -r ${{inputs.working-directory}}/node_modules.zip ${{inputs.working-directory}}/node_modules
+
+
       - name: Store node_modules
         uses: actions/upload-artifact@v3
         with:
           name: node_modules
-          path: ${{inputs.working-directory}}/node_modules
+          path: ${{inputs.working-directory}}/node_modules.zip
         
 
       
