@@ -38,7 +38,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node_modules
-          path: ${{ inputs.working-directory}}/node_modules
+          path: ${{ inputs.working-directory}}/node_modules.zip
+
+      - name: Unzip node_modules
+        run: |
+          unzip -q ${{ inputs.working-directory}}/node_modules.zip -d ${{ inputs.working-directory}}
 
       - name: Package
         run: |
