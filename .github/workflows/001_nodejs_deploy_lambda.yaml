@@ -4,7 +4,7 @@ on:
       aws-region:
         required: true
         type: string
-        default: "sa-east-1"
+        default: sa-east-1
       stack-name:
         required: true
         type: string
@@ -14,7 +14,7 @@ on:
       template-file:
         required: true
         type: string
-        default: "template.yaml"
+        default: template.yaml
     secrets:
       AWS_BUCKET_DEPLOY:
         required: true
