@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node_modules
-          path: node_modules
+          path: ${{inputs.working-directory}}/node_modules
         
 
       
