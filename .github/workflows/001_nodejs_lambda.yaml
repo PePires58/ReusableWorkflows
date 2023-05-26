@@ -2,11 +2,11 @@ on:
   workflow_call:
     inputs:
       working-directory:
-        required: true
+        required: false
         type: string
         default: src
       execute-unit-tests:
-        required: true
+        required: false
         type: string
         default: "true"
       name-test-script:
