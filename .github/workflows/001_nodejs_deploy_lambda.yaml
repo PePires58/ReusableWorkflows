@@ -15,6 +15,10 @@ on:
         required: false
         type: string
         default: "template.yaml"
+      working-directory:
+        required: false
+        type: string
+        default: src
     secrets:
       AWS_BUCKET_DEPLOY:
         required: true
@@ -34,6 +38,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node_modules
+          path: ${{ inputs.working-directory}}/node_modules
 
       - name: Package
         run: |
