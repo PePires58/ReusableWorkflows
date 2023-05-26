@@ -1,0 +1,35 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+        default: src
+      execute-unit-tests:
+        required: true
+        type: boolean
+        default: true
+      name-test-script:
+        required: false
+        type: string
+        default: test
+
+jobs:
+  Restore-dependencies-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Restore dependencies
+        run: cd ${{ inputs.working-directory }} && npm install
+
+      - name: Testing
+        run: |
+          if ${{ inputs.config-path }} == true
+          then
+            cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-test-script }}
+          else
+            echo "skipping unit tests"
+          fi
+
