@@ -15,7 +15,7 @@ on:
         default: test
 
 jobs:
-  Restore-dependencies:
+  Restore-dependencies-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,21 +23,15 @@ jobs:
       
       - name: Restore dependencies
         run: cd ${{ inputs.working-directory }} && npm install
-      
-  Tests:
-    needs: [Restore-dependencies]
-    if: ${{ inputs.execute-unit-tests }} == true
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Testing
         run: |
-          if ${{ inputs.execute-unit-tests }} == true
+          if ${{ inputs.execute-unit-tests }} == "true"
           then
             cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-test-script }}
           else
             echo "skipping unit tests"
           fi
+
+      
 
