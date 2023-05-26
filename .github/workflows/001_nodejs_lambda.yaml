@@ -33,5 +33,12 @@ jobs:
             echo "skipping unit tests"
           fi
 
+      - name: Store node_modules
+        uses: actions/upload-artifact@v3
+        with:
+          name: node_modules
+          path: node_modules
+        
+
       
 

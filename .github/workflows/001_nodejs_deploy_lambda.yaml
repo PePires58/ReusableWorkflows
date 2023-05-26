@@ -1,0 +1,59 @@
+on:
+  workflow_call:
+    inputs:
+      aws-region:
+        required: true
+        type: string
+        default: sa-east-1
+      stack-name:
+        required: true
+        type: string
+      parameters-file-path:
+        required: true
+        type: string
+      template-file:
+        required: true
+        type: string
+        default: template.yaml
+    secrets:
+      AWS_BUCKET_DEPLOY:
+        required: true
+        type: string
+      AWS_ACCESS_KEY_ID:
+        required: true
+        type: string
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+        type: string
+
+jobs:
+  Deploy-lambda:
+    runs-on: ubuntu-latest
+
+     steps:
+      - uses: actions/checkout@v2
+
+      - name: Downloading node_modules
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+
+      - name: Package
+        run: |
+          sam package --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }} --template-file ${{ inputs.template-file }} --output-template-file deploy.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
+
+      - name: Deploy
+        run: |
+          aws cloudformation deploy --template-file deploy.yaml --stack-name ${{ inputs.stack-name}} --parameter-overrides  file://${{ inputs.parameters-file-path}}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
+        
+
+      
+
