@@ -42,6 +42,7 @@ jobs:
 
       - name: Unzip node_modules
         run: |
+          ls -la && 
           unzip ${{ inputs.working-directory}}/node_modules.zip
 
       - name: Package
