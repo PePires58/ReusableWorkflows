@@ -15,7 +15,7 @@ on:
         default: test
 
 jobs:
-  Restore-dependencies-and-test:
+  Restore-dependencies:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +23,15 @@ jobs:
       
       - name: Restore dependencies
         run: cd ${{ inputs.working-directory }} && npm install
+
+      
+  Tests:
+    needs: [Restore-dependencies]
+    if: ${{ inputs.config-path }} == "true"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
 
       - name: Testing
         run: |
