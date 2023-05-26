@@ -30,7 +30,7 @@ jobs:
   Deploy-lambda:
     runs-on: ubuntu-latest
 
-     steps:
+    steps:
       - uses: actions/checkout@v2
 
       - name: Downloading node_modules
