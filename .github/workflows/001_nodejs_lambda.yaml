@@ -7,8 +7,8 @@ on:
         default: src
       execute-unit-tests:
         required: true
-        type: boolean
-        default: true
+        type: string
+        default: "true"
       name-test-script:
         required: false
         type: string
@@ -26,7 +26,7 @@ jobs:
 
       - name: Testing
         run: |
-          if ${{ inputs.config-path }} == true
+          if ${{ inputs.config-path }} == "true"
           then
             cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-test-script }}
           else
