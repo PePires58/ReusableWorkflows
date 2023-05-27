@@ -38,11 +38,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node_modules
-          path: ${{ inputs.working-directory}}
 
       - name: Unzip node_modules
         run: |
-          unzip ${{ inputs.working-directory}}/node_modules.zip
+          unzip node_modules.zip
       
       - name: Run Ls
         run: |
