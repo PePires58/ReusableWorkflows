@@ -46,7 +46,7 @@ jobs:
 
   Deploy-lambda:
     needs: [Build-lambda]
-    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_deploy_lambda.yaml@main
+    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_deploy.yaml@main
     with: 
       aws-region : ${{ inputs.aws-region }}
       stack-name: ${{ inputs.stack-name }}
