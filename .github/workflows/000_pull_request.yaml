@@ -24,10 +24,15 @@ on:
         required: true
 
 jobs:
+
   Create-pull-request:
     runs-on: ubuntu-latest
 
-    - name: Create pull request
+    steps:
+      - uses: actions/checkout@v2
+      
+
+      - name: Create pull request
         run: gh pr create -B ${{ inputs.target-branch }} -H ${{ inputs.source-branch}} --title '${{ inputs.title}}' --body '${{ inputs.body-message}}' || ${{ inputs.continue-on-error }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
