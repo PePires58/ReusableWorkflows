@@ -38,7 +38,7 @@ on:
 jobs:
   
   Build-lambda:
-    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_lambda.yaml@main
+    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_build.yaml@main
     with:
       working-directory: ${{ inputs.working-directory }}
       execute-unit-tests: ${{ inputs.execute-unit-tests }}
