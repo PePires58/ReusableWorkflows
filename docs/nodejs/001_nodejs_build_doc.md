@@ -5,7 +5,7 @@ In this repository you will find how to use the workflow.
 - 1 - Parameters:
 <table>
     <thead>
-        <th>
+        <tr>
             <td> 
                 Name
             </td>
@@ -18,7 +18,7 @@ In this repository you will find how to use the workflow.
             <td>
                 Default value
             </td>
-        <th>
+        <tr>
     </thead>
     <tbody>
         <tr>
