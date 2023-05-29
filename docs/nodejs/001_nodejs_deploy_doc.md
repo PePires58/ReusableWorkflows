@@ -97,3 +97,32 @@ This workflow is only usable to deploy to AWS.
         </tr>
     <tbody>
 </table>
+
+- 3 - Examples
+
+Check somes examples bellow
+
+1 - Deploy-lambda:
+    needs: [Build-lambda]
+    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_deploy.yaml@main
+    with: 
+      stack-name: "dev-test"
+      parameters-file-path: "infra/dev.parameters.json"
+    secrets:
+      AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+2 - Deploy-lambda:
+    needs: [Build-lambda]
+    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_deploy.yaml@main
+    with: 
+      aws-region : "us-east-1"
+      stack-name: "dev-test"
+      parameters-file-path: "infra/dev.parameters.json"
+      template-file: "custom-template.yaml"
+      working-directory: "src"
+    secrets:
+      AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -10,6 +10,6 @@ Check more informations and how to use in: [NodeJs build documentation](https://
 
 - 2 - NodeJs deploy: in this workflow you can restore dependencies (store as artifact), unzip node_modules, build a SAM template and deploy your code with cloudformation.
 
-Check more informations and how to use in [NodeJs deploy documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_doc.md)
+Check more informations and how to use in: [NodeJs deploy documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_doc.md)
 
 Thanks a lot
