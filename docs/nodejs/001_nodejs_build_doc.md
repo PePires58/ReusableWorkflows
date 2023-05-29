@@ -72,6 +72,7 @@ The goals of this workflow are to restore the dependencies, run the unit tests (
 - 3 - Examples:
 Check some examples of use bellow
 
+```
 1 - Build-lambda:
     uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_build.yaml@main
     with:
@@ -87,3 +88,4 @@ Check some examples of use bellow
     with:
       working-directory: "src"
       name-test-script: "test-unit"
+```
