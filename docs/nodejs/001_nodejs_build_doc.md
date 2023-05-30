@@ -73,17 +73,21 @@ The goals of this workflow are to restore the dependencies, run the unit tests (
 Check some examples of use bellow
 
 ```
-1 - Build-lambda:
+    Build-lambda:
     uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_build.yaml@main
     with:
       working-directory: "src"
       execute-unit-tests: "false"
       name-test-script: "test-unit"
+```
 
-2 - Build-lambda:
+```
+    Build-lambda:
     uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_build.yaml@main
+```
 
-3 - Build-lambda:
+```
+    Build-lambda:
     uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_build.yaml@main
     with:
       working-directory: "src"
