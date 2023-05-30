@@ -12,4 +12,8 @@ Check more informations and how to use in: [NodeJs build documentation](https://
 
 Check more informations and how to use in: [NodeJs deploy documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_doc.md)
 
+- 3 - Nodejs deploy full pipeline: in this workflow you can restore dependencies, run tests, build sam template and deploy your code with cloudformation. Use this workflow and don't worry about your workflow, just use and let it deploy your code.
+
+Check more information and how to use in: [NodeJs deploy full pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_pipeline_doc.md)
+
 Thanks a lot
