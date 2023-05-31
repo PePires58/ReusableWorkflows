@@ -16,4 +16,10 @@ Check more informations and how to use in: [NodeJs deploy documentation](https:/
 
 Check more information and how to use in: [NodeJs deploy full pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_pipeline_doc.md)
 
+# CloudFormation workflows
+
+- 1 - CloudFormation deploy pipeline: in this workflow you can deploy your infrastructure as code, using CloudFormation template. Don't worry about to create the pipeline to it, just pass the keys, the bucket to package and build the template and that is it.
+
+Check more informations and hot to use in: [CloudFormation deploy pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudformation/002_cloudformation_deploy_pipeline_doc.md)
+
 Thanks a lot
