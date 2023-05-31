@@ -88,7 +88,7 @@ The goals of this workflow are to build a SAM template, package it into an S3 bu
 Check somes examples bellow
 
 ```
-    Deploy-lambda:
+    Deploy-infra:
     uses: PePires58/ReusableWorkflows/.github/workflows/002_cloudformation_deploy_pipeline.yaml@main
     with: 
       stack-name: "dev-escoladesoftware-cursos-bucketcursos"
