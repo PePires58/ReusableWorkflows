@@ -1,0 +1,32 @@
+on:
+  workflow_call:
+    inputs:
+      log-group-name:
+        required: true
+        type: string
+      retention-in-days:
+        required: false
+        type: number
+        default: 3
+    secrets:
+      AWS_BUCKET_DEPLOY:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  Update-Log-Group:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Update Log Group Retention
+        run: |
+          aws logs put-retention-policy --log-group-name ${{ inputs.log-group-name}} --retention-in-days ${{ inputs.retention-in-days }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}

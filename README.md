@@ -20,6 +20,12 @@ Check more information and how to use in: [NodeJs deploy full pipeline](https://
 
 - 1 - CloudFormation deploy pipeline: in this workflow you can deploy your infrastructure as code, using CloudFormation template. Don't worry about to create the pipeline to it, just pass the keys, the bucket to package and build the template and that is it.
 
-Check more informations and hot to use in: [CloudFormation deploy pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudformation/002_cloudformation_deploy_pipeline_doc.md)
+Check more informations and how to use in: [CloudFormation deploy pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudformation/002_cloudformation_deploy_pipeline_doc.md)
+
+# CloudWatch - Log Group - Workflows
+
+- 1 - CloudWatch LogGroup Put Retention workflow: in this workflow you can update your LogGroup retention period after create it. You only need to pass the log group name and the retention day if you want (default is 3 days).
+
+Check more informations and how to use in: [CloudWatch LogGroup PutRetentionDays](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudformation/003_cloudwatch_log_group_put_retention.md)
 
 Thanks a lot
