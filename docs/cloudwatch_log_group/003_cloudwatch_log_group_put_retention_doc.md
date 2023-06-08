@@ -80,7 +80,6 @@ Check somes examples bellow
       log-group-name: "/aws/lambda/dev_escoladesoftware-autorizador-lambdarealizarloginfn"
       retention-in-days: 5
     secrets:
-      AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 ```
@@ -91,7 +90,6 @@ Check somes examples bellow
     with: 
       log-group-name: "/aws/lambda/dev_escoladesoftware-autorizador-lambdarealizarloginfn"
     secrets:
-      AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 ```
