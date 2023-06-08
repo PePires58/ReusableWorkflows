@@ -1,6 +1,10 @@
 on:
   workflow_call:
     inputs:
+      aws-region:
+        required: false
+        type: string
+        default: "sa-east-1"
       log-group-name:
         required: true
         type: string

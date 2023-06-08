@@ -26,6 +26,20 @@ The goals of this workflow are to build a SAM template, package it into an S3 bu
     <tbody>
         <tr>
             <td>
+                aws-region
+            </td>
+            <td>
+                string
+            </td>
+            <td>
+                false
+            </td>
+            <td>
+                sa-east-1
+            </td>
+        </tr>
+        <tr>
+            <td>
                 log-group-name
             </td>
             <td>
