@@ -26,6 +26,6 @@ Check more informations and how to use in: [CloudFormation deploy pipeline](http
 
 - 1 - CloudWatch LogGroup Put Retention workflow: in this workflow you can update your LogGroup retention period after create it. You only need to pass the log group name and the retention day if you want (default is 3 days).
 
-Check more informations and how to use in: [CloudWatch LogGroup PutRetentionDays](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudformation/003_cloudwatch_log_group_put_retention.md)
+Check more informations and how to use in: [CloudWatch LogGroup PutRetentionDays](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudwatch_log_group/003_cloudwatch_log_group_put_retention_doc.md)
 
 Thanks a lot

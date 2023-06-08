@@ -26,21 +26,7 @@ The goals of this workflow are to build a SAM template, package it into an S3 bu
     <tbody>
         <tr>
             <td>
-                aws-region
-            </td>
-            <td>
-                string
-            </td>
-            <td>
-                false
-            </td>
-            <td>
-                sa-east-1
-            </td>
-        </tr>
-        <tr>
-            <td>
-                stack-name
+                log-group-name
             </td>
             <td>
                 string
@@ -54,30 +40,16 @@ The goals of this workflow are to build a SAM template, package it into an S3 bu
         </tr>
         <tr>
             <td>
-                parameters-file-path
+               retention-in-days
             </td>
             <td>
-                string
-            </td>
-            <td>
-                true
-            </td>
-            <td>
-                -
-            </td>
-        </tr>
-        <tr>
-            <td>
-               template-file
-            </td>
-            <td>
-                string
+                number
             </td>
             <td>
                 false
             </td>
             <td>
-                template.yaml
+                3
             </td>
         </tr>
     <tbody>
