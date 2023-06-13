@@ -37,10 +37,9 @@ jobs:
       - name: Check if API ID exists
         if: ${{ env.GITHUB_API_GTW_ID != '' }}
         run: |
-          if ${{ env.GITHUB_API_GTW_ID != '' }} then
+          if ${{ env.GITHUB_API_GTW_ID }} != '' then
             echo "ID da api existe"
           else
-            echo "ID não encontrado"
             exit 1
           fi
 
