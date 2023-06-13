@@ -45,7 +45,7 @@ jobs:
       
       - name: Check if node_modules exists
         run: |
-          cd ${{ inputs.working-directory}}/node_modules
+          ls ${{ inputs.working-directory}}/node_modules
 
       - name: Package
         run: |
