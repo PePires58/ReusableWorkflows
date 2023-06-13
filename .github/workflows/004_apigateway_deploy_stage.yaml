@@ -1,0 +1,51 @@
+on:
+  workflow_call:
+    inputs:
+      aws-region:
+        required: false
+        type: string
+        default: "sa-east-1"
+      api-gateway-name:
+        required: true
+        type: string
+      stage-name:
+        required: false
+        type: string
+        default: "dev"
+    secrets:
+      AWS_BUCKET_DEPLOY:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  Deploy-stage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get API ID from name
+        run: |
+          aws apigateway get-rest-apis --region $ {{ inputs.aws-region }} --query "items[?name=='${{ inputs.api-gateway-name }}']".id --output text >> $GITHUB_API_GTW_ID
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
+
+      - name: Check if API ID exists
+        if: ${{ $GITHUB_API_GTW_ID <> '' }}
+        run: |
+          echo "ID da api existe"
+
+      - name: Update api gateway stage
+        run: |
+          aws apigateway update-stage --region ${{ inputs.aws-region }} \
+            --rest-api-id $GITHUB_API_GTW_ID \ 
+            --stage-name ${{ inputs.stage-name }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
