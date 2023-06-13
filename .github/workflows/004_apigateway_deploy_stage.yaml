@@ -42,9 +42,7 @@ jobs:
       - name: Update api gateway stage
         if: ${{ env.GITHUB_API_GTW_ID != '' }}
         run: |
-          aws apigateway update-stage --region ${{ inputs.aws-region }} \
-            --rest-api-id ${{ env.GITHUB_API_GTW_ID }} \ 
-            --stage-name ${{ inputs.stage-name }}
+          aws apigateway update-stage --region ${{ inputs.aws-region }} --rest-api-id ${{ env.GITHUB_API_GTW_ID }} --stage-name ${{ inputs.stage-name }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
