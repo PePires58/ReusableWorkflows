@@ -27,13 +27,8 @@ jobs:
       - name: Testing
         if: $ {{ inputs.execute-unit-tests == "true" }}
         run: |
-          if ${{ inputs.execute-unit-tests }} == "true"
-          then
-            cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-test-script }}
-          else
-            echo "skipping unit tests"
-          fi
-
+          cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-test-script }}
+          
       - name: Zip Artifacts
         run: |
           zip -r ${{inputs.working-directory}}/node_modules.zip ${{inputs.working-directory}}/node_modules
