@@ -29,7 +29,7 @@ jobs:
 
       - name: Get API ID from name
         run: |
-          echo "GITHUB_API_GTW_ID=$(aws apigateway get-rest-apis --region $ {{ inputs.aws-region }} --query "items[?name=='${{ inputs.api-gateway-name }}']".id --output text)" >> $GITHUB_ENV
+          echo "GITHUB_API_GTW_ID=$(aws apigateway get-rest-apis --region ${{ inputs.aws-region }} --query "items[?name=='${{ inputs.api-gateway-name }}']".id --output text)" >> $GITHUB_ENV
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
