@@ -36,7 +36,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
 
       - name: Check if API ID exists
-        if: ${{ env.GITHUB_API_GTW_ID <> '' }}
+        if: ${{ env.GITHUB_API_GTW_ID != '' }}
         run: |
           echo "ID da api existe"
 
