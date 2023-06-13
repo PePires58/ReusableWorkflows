@@ -25,6 +25,7 @@ jobs:
         run: cd ${{ inputs.working-directory }} && npm install
 
       - name: Testing
+        if: $ {{ inputs.execute-unit-tests == "true" }}
         run: |
           if ${{ inputs.execute-unit-tests }} == "true"
           then
