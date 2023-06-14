@@ -38,12 +38,9 @@ jobs:
         if: ${{ env.GITHUB_API_GTW_ID != '' }}
         run: |
           if ${{ env.GITHUB_API_GTW_ID }} != '' then
-            echo "ID da api existe"
-            exit 0
-          fi
-          if ${{ env.GITHUB_API_GTW_ID }} == '' then
-            echo "ID não encontrado"
-            exit 1
+            echo "ID da API existe"
+          else
+            core.setFailed("ID da API não existe");
           fi
 
 
