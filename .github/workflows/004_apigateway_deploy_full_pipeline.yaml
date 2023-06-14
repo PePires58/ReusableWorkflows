@@ -32,7 +32,7 @@ on:
 
 jobs:
   
- Deploy-infra:
+  Deploy-infra:
     uses: PePires58/ReusableWorkflows/.github/workflows/002_cloudformation_deploy_pipeline.yaml@main
     with: 
       aws-region: ${{ inputs.aws-region }}
