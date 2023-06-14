@@ -28,4 +28,10 @@ Check more informations and how to use in: [CloudFormation deploy pipeline](http
 
 Check more informations and how to use in: [CloudWatch LogGroup PutRetentionDays](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/cloudwatch_log_group/003_cloudwatch_log_group_put_retention_doc.md)
 
+# API Gateway - Workflows
+
+- 1 - API Gateway deploy full pipeline: in this workflow you can deploy your API and deploy your stage in a once. You just need to pass the parameters and that is it.
+
+Check more informations and how to use in: [API Gateway deploy full pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/apigateway/004_apigateway_deploy_full_pipeline.md)
+
 Thanks a lot
