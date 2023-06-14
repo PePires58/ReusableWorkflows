@@ -37,12 +37,7 @@ jobs:
       - name: Check if API ID exists
         if: ${{ env.GITHUB_API_GTW_ID != '' }}
         run: |
-          if "${{ env.GITHUB_API_GTW_ID }}" != '' then
-            echo "ID da API existe"
-          else
-            core.setFailed("ID da API não existe");
-          fi
-
+          echo "ID da API existe"
 
       - name: Update api gateway stage
         if: ${{ env.GITHUB_API_GTW_ID != '' }}
