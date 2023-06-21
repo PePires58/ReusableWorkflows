@@ -33,7 +33,6 @@ jobs:
     needs: [Build-nodejs]
     uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_deploy_npm.yaml@main
     with: 
-      nome-pacote: ${{ inputs.nome-pacote }}
       working-directory: ${{ inputs.working-directory }}
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
