@@ -13,9 +13,6 @@ on:
         required: false
         type: string
         default: test
-      nome-pacote:
-        required: true
-        type: string
     secrets:
       NPM_TOKEN:
         required: true
