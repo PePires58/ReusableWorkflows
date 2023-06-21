@@ -1,0 +1,39 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: false
+        type: string
+        default: src
+      execute-unit-tests:
+        required: false
+        type: string
+        default: "true"
+      name-test-script:
+        required: false
+        type: string
+        default: test
+      nome-pacote:
+        required: true
+        type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+
+jobs:
+  
+  Build-nodejs:
+    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_build.yaml@main
+    with:
+      working-directory: ${{ inputs.working-directory }}
+      execute-unit-tests: ${{ inputs.execute-unit-tests }}
+      name-test-script: ${{ inputs.name-test-script }}
+
+  Deploy-package-npm:
+    needs: [Build-nodejs]
+    uses: PePires58/ReusableWorkflows/.github/workflows/001_nodejs_deploy_npm.yaml@main
+    with: 
+      nome-pacote: ${{ inputs.nome-pacote }}
+      working-directory: ${{ inputs.working-directory }}
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

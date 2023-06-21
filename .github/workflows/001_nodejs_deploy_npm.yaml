@@ -1,0 +1,50 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: false
+        type: string
+        default: src
+      nome-pacote:
+        required: true
+        type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+
+jobs:
+  Deploy-package-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Downloading node_modules
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+
+      - name: Unzip node_modules
+        run: |
+          unzip node_modules.zip
+      
+      - name: Check if node_modules exists
+        run: |
+          ls ${{ inputs.working-directory}}/node_modules
+
+      - name: NPM Link
+        run: |
+          npm link ${{ inputs.nome-pacote }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: NPM publish
+        run: |
+          npm publish ${{ inputs.nome-pacote }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+        
+
+      
+
