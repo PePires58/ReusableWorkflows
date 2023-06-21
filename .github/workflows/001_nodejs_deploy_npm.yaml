@@ -37,8 +37,8 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm publish
+      - run: cd ${{ inputs.working-directory}} && npm ci
+      - run: cd ${{ inputs.working-directory}} && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
