@@ -41,9 +41,9 @@ jobs:
         run: |
           zip -r ${{inputs.working-directory}}/built-js.zip ${{inputs.working-directory}}/${{ inputs.build-js-directory }}
 
-      - name: Store node_modules
+      - name: Store built-js
         uses: actions/upload-artifact@v3
         with:
-          name: node_modules
+          name: built-js
           path: ${{inputs.working-directory}}/built-js.zip
 
