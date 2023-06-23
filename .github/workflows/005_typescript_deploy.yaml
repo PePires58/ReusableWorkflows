@@ -1,0 +1,68 @@
+on:
+  workflow_call:
+    inputs:
+      build-js-directory:
+        required: false
+        type: string
+        default: built
+      aws-region:
+        required: false
+        type: string
+        default: "sa-east-1"
+      stack-name:
+        required: true
+        type: string
+      parameters-file-path:
+        required: true
+        type: string
+      template-file:
+        required: false
+        type: string
+        default: "template.yaml"
+      working-directory:
+        required: false
+        type: string
+        default: src
+    secrets:
+      AWS_BUCKET_DEPLOY:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  Deploy-lambda:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Downloading built-js
+        uses: actions/download-artifact@v3
+        with:
+          name: built-js
+
+      - name: Unzip built-js
+        run: |
+          unzip built-js.zip
+      
+      - name: Check if folder of built from ts exists
+        run: |
+          ls ${{ inputs.working-directory}}/${{ inputs.build-js-directory}}
+
+      - name: Package
+        run: |
+          sam package --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }} --template-file ${{ inputs.template-file }} --output-template-file deploy.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
+
+      - name: Deploy
+        run: |
+          aws cloudformation deploy --template-file deploy.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://${{ inputs.parameters-file-path}}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ inputs.aws-region}}

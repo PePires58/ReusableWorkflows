@@ -1,0 +1,65 @@
+on:
+  workflow_call:
+    inputs:
+      build-js-directory:
+        required: false
+        type: string
+        default: built
+      working-directory:
+        required: false
+        type: string
+        default: src
+      execute-unit-tests:
+        required: false
+        type: string
+        default: "true"
+      name-test-script:
+        required: false
+        type: string
+        default: test
+      aws-region:
+        required: false
+        type: string
+        default: "sa-east-1"
+      stack-name:
+        required: true
+        type: string
+      parameters-file-path:
+        required: true
+        type: string
+      template-file:
+        required: false
+        type: string
+        default: "template.yaml"
+    secrets:
+      AWS_BUCKET_DEPLOY:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  
+  Build-typescript:
+    uses: PePires58/ReusableWorkflows/.github/workflows/005_typescript_build.yaml@main
+    with:
+      working-directory: ${{ inputs.working-directory }}
+      execute-unit-tests: ${{ inputs.execute-unit-tests }}
+      name-test-script: ${{ inputs.name-test-script }}
+      build-js-directory: ${{ inputs.build-js-directory }}
+
+  Deploy-lambda:
+    needs: [Build-typescript]
+    uses: PePires58/ReusableWorkflows/.github/workflows/005_typescript_deploy.yaml@main
+    with: 
+      aws-region : ${{ inputs.aws-region }}
+      stack-name: ${{ inputs.stack-name }}
+      parameters-file-path: ${{ inputs.parameters-file-path }}
+      template-file: ${{ inputs.template-file }}
+      working-directory: ${{ inputs.working-directory }}
+      build-js-directory: ${{ inputs.build-js-directory }}
+    secrets:
+      AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
