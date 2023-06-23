@@ -35,7 +35,7 @@ jobs:
           
       - name: Compile to JS
         run: |
-          cd ${{ inputs.working-directory }} && npm run tsc
+          cd ${{ inputs.working-directory }} && tsc
         
       - name: Zip Artifacts
         run: |
