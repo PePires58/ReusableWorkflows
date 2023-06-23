@@ -1,0 +1,49 @@
+on:
+  workflow_call:
+    inputs:
+      build-js-directory:
+        required: false
+        type: string
+        default: built
+      working-directory:
+        required: false
+        type: string
+        default: src
+      execute-unit-tests:
+        required: false
+        type: string
+        default: "true"
+      name-test-script:
+        required: false
+        type: string
+        default: test
+
+jobs:
+  Restore-dependencies-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Restore dependencies
+        run: cd ${{ inputs.working-directory }} && npm install
+
+      - name: Testing
+        if: ${{ contains(inputs.execute-unit-tests, true) }} 
+        run: |
+          cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-test-script }}
+          
+      - name: Compile to JS
+        run: |
+          npm run tsc
+        
+      - name: Zip Artifacts
+        run: |
+          zip -r ${{inputs.working-directory}}/built-js.zip ${{inputs.working-directory}}/{{ inputs.build-js-directory }}
+
+      - name: Store node_modules
+        uses: actions/upload-artifact@v3
+        with:
+          name: node_modules
+          path: ${{inputs.working-directory}}/built-js.zip
+
