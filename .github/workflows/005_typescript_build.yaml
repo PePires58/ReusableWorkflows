@@ -39,7 +39,7 @@ jobs:
         
       - name: Zip Artifacts
         run: |
-          zip -r ${{inputs.working-directory}}/built-js.zip ${{inputs.working-directory}}/{{ inputs.build-js-directory }}
+          zip -r ${{inputs.working-directory}}/built-js.zip ${{inputs.working-directory}}/${{ inputs.build-js-directory }}
 
       - name: Store node_modules
         uses: actions/upload-artifact@v3
