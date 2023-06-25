@@ -1,0 +1,40 @@
+on:
+  workflow_call:
+    inputs:
+      build-js-directory:
+        required: false
+        type: string
+        default: built
+      working-directory:
+        required: false
+        type: string
+        default: src
+      execute-unit-tests:
+        required: false
+        type: string
+        default: "true"
+      name-test-script:
+        required: false
+        type: string
+        default: test
+    secrets:
+      NPM_TOKEN:
+        required: true
+
+jobs:
+  
+  Build-typescript:
+    uses: PePires58/ReusableWorkflows/.github/workflows/005_typescript_build.yaml@main
+    with:
+      working-directory: ${{ inputs.working-directory }}
+      execute-unit-tests: ${{ inputs.execute-unit-tests }}
+      name-test-script: ${{ inputs.name-test-script }}
+      build-js-directory: ${{ inputs.build-js-directory }}
+
+  Deploy-package-npm:
+    needs: [Build-typescript]
+    uses: PePires58/ReusableWorkflows/.github/workflows/005_typescript_deploy_npm.yaml@main
+    with: 
+      working-directory: ${{ inputs.working-directory }}
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,47 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: false
+        type: string
+        default: src
+    secrets:
+      NPM_TOKEN:
+        required: true
+
+jobs:
+  Deploy-package-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Downloading built-js
+        uses: actions/download-artifact@v3
+        with:
+          name: built-js
+
+      - name: Unzip built-js
+        run: |
+          unzip built-js.zip
+      
+      - name: Check if folder of built from ts exists
+        run: |
+          ls ${{ inputs.working-directory}}/${{ inputs.build-js-directory}}
+
+      - name: Generate lock file
+        run: |
+          cd ${{ inputs.working-directory}} && npm i --package-lock-only
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Create CI
+        run: cd ${{ inputs.working-directory}} && npm ci
+      
+      - name: Publish package to NPM
+        run: cd ${{ inputs.working-directory}} && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
