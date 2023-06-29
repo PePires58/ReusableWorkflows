@@ -42,12 +42,12 @@ jobs:
           cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-compile-script }}
         
       - name: Zip Artifacts
-        if: ${{ inputs.build-js-directory != Null }}
+        if: ${{ inputs.build-js-directory != '' }}
         run: |
           zip -r ${{inputs.working-directory}}/built-js.zip ${{inputs.working-directory}}/${{ inputs.build-js-directory }}
 
       - name: Store dependencies
-        if: ${{ inputs.build-js-directory != Null }}
+        if: ${{ inputs.build-js-directory != '' }}
         uses: actions/upload-artifact@v3
         with:
           name: built-js
