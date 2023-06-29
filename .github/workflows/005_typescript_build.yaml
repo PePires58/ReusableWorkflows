@@ -17,6 +17,10 @@ on:
         required: false
         type: string
         default: test
+      name-compile-script:
+        required: false 
+        type: string
+        default: compile
 
 jobs:
   Restore-dependencies-and-test:
@@ -35,13 +39,15 @@ jobs:
           
       - name: Compile to JS
         run: |
-          cd ${{ inputs.working-directory }} && tsc
+          cd ${{ inputs.working-directory }} && npm run ${{ inputs.name-compile-script }}
         
       - name: Zip Artifacts
+        if: ${{ inputs.build-js-directory != Null }}
         run: |
           zip -r ${{inputs.working-directory}}/built-js.zip ${{inputs.working-directory}}/${{ inputs.build-js-directory }}
 
-      - name: Store built-js
+      - name: Store dependencies
+        if: ${{ inputs.build-js-directory != Null }}
         uses: actions/upload-artifact@v3
         with:
           name: built-js
