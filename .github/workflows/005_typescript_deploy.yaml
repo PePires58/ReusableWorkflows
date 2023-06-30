@@ -61,12 +61,17 @@ jobs:
           echo "PARAMETROS=$(cat ${{ inputs.parameters-file-path}} | tr -d '\r\n')" >> $GITHUB_ENV
           echo "PARAMETROS_FORMATADO=$(echo "${{ env.PARAMETROS }}" | sed 's/"/\\"/g')" >> $GITHUB_ENV
           
-      - name: Mostra parametros após formatar
+      - name: Formata parametros
         run: |
-          echo "PARAMETROS_FORMATADO=$(echo "${{ env.PARAMETROS }}" | sed 's/"/\\"/g')" >> $GITHUB_ENV
-          echo $PARAMETROS_FORMATADO
+          echo "PARAMETROS_FORMATADO=$(echo "${{ env.PARAMETROS }}" | tr ',' ' ')" >> $GITHUB_ENV
+          
+      - name: Parametros formatados
+        if: ${{ env.PARAMETROS_FORMATADO != '' }}
+        run: |
+          echo "${{ env.PARAMETROS_FORMATADO }}"
 
       - name: Build 
+        if: ${{ env.PARAMETROS_FORMATADO != '' }}
         run: |
           sam build --beta-features --template ${{ inputs.template-file }}
         env:
