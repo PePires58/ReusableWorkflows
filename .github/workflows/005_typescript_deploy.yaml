@@ -51,9 +51,9 @@ jobs:
         run: |
           ls ${{ inputs.working-directory}}/${{ inputs.build-js-directory}}
 
-      - name: Package
+      - name: Build 
         run: |
-          sam package --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }} --template-file ${{ inputs.template-file }} --output-template-file deploy.yaml
+          sam build --beta-features --template ${{ inputs.template-file }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -61,7 +61,7 @@ jobs:
 
       - name: Deploy
         run: |
-          aws cloudformation deploy --template-file deploy.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://${{ inputs.parameters-file-path}}
+          sam deploy --template-file .aws-sam/build/template.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://${{ inputs.parameters-file-path}}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
