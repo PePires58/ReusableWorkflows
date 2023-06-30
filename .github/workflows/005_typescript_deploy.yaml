@@ -51,6 +51,15 @@ jobs:
         run: |
           ls ${{ inputs.working-directory}}/${{ inputs.build-js-directory}}
 
+      - name: Check if parameters file exists
+        run: |
+          ls ${{ inputs.parameters-file-path}}
+
+      - name: Mostra parametros a serem inseridos
+        run: |
+          cat ${{ inputs.parameters-file-path}}
+          echo "PARAMETROS=$(cat ${{ inputs.parameters-file-path}})" >> $GITHUB_ENV
+
       - name: Build 
         run: |
           sam build --beta-features --template ${{ inputs.template-file }}
@@ -60,8 +69,9 @@ jobs:
           AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
 
       - name: Deploy
+        if: ${{ env.PARAMETROS != '' }}
         run: |
-          sam deploy --template-file .aws-sam/build/template.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides "$(cat ${{ inputs.parameters-file-path}})" --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }}
+          sam deploy --template-file .aws-sam/build/template.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides ${{ env.PARAMETROS }} --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
