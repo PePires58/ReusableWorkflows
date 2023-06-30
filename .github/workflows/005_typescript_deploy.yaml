@@ -62,7 +62,7 @@ jobs:
           
       - name: Formata parametros
         run: |
-          echo "PARAMETROS=$(echo ${{ env.PARAMETROS }} | tr -d '\n')" >> $GITHUB_ENV
+          echo "PARAMETROS=$(echo ${{ env.PARAMETROS }} | tr -d '\r\n')" >> $GITHUB_ENV
           echo "Parametros formatados:"
           echo ${{ env.PARAMETROS }}
 
