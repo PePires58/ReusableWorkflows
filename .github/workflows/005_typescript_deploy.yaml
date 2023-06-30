@@ -63,7 +63,8 @@ jobs:
           
       - name: Mostra parametros após formatar
         run: |
-          echo ${{ env.PARAMETROS_FORMATADO }}
+          echo "PARAMETROS_FORMATADO=$(echo "${{ env.PARAMETROS }}" | sed 's/"/\\"/g')" >> $GITHUB_ENV
+          echo $PARAMETROS_FORMATADO
 
       - name: Build 
         run: |
@@ -74,7 +75,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ inputs.aws-region}}
 
       - name: Deploy
-        if: ${{ env.PARAMETROS != '' }}
+        if: ${{ env.PARAMETROS_FORMATADO != '' }}
         run: |
           sam deploy --template-file .aws-sam/build/template.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides "${{ env.PARAMETROS_FORMATADO }}" --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }}
         env:
