@@ -59,6 +59,7 @@ jobs:
         run: |
           cat ${{ inputs.parameters-file-path}}
           echo "PARAMETROS=$(cat ${{ inputs.parameters-file-path}} | tr -d '\r\n')" >> $GITHUB_ENV
+          echo "PARAMETROS=$(echo "$PARAMETROS" | sed 's/"/\\"/g')" >> $GITHUB_ENV
           
       - name: Mostra parametros após formatar
         run: |
@@ -75,7 +76,7 @@ jobs:
       - name: Deploy
         if: ${{ env.PARAMETROS != '' }}
         run: |
-          sam deploy --template-file .aws-sam/build/template.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides $(echo ${{ env.PARAMETROS }}) --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }}
+          sam deploy --template-file .aws-sam/build/template.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides "${{ env.PARAMETROS }}" --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
