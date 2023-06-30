@@ -59,6 +59,12 @@ jobs:
         run: |
           cat ${{ inputs.parameters-file-path}}
           echo "PARAMETROS=$(cat ${{ inputs.parameters-file-path}})" >> $GITHUB_ENV
+          
+      - name: Formata parametros
+        run: |
+          echo "PARAMETROS=$(echo ${{ env.PARAMETROS }} | tr -d '\n')" >> $GITHUB_ENV
+          echo "Parametros formatados:"
+          echo ${{ env.PARAMETROS }}
 
       - name: Build 
         run: |
