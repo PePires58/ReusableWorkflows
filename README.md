@@ -20,6 +20,10 @@ Check more information and how to use in: [NodeJs deploy full pipeline documenta
 
 Check more informations and how to use in: [NodeJs npm deploy documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_npm.md)
 
+- 5 - NodeJs deploy npm pipeline: in this workflow you can restore, test, build your package and publish to npm. Use this workflow and don't worry about the workflow, just pass the parameters and watch your npm been deployed.
+
+Check more informations and how to use in: [NodeJs npm deploy pipeline documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_npm_pipeline.md)
+
 # CloudFormation workflows
 
 - 1 - CloudFormation deploy pipeline: in this workflow you can deploy your infrastructure as code, using CloudFormation template. Don't worry about to create the pipeline to it, just pass the keys, the bucket to package and build the template and that is it.
