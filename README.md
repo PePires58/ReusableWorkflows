@@ -42,4 +42,9 @@ Check more informations and how to use in: [CloudWatch LogGroup PutRetentionDays
 
 Check more informations and how to use in: [API Gateway deploy full pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/apigateway/004_apigateway_deploy_full_pipeline.md)
 
+- 2 - API Gateway deploy stage: in this workflow you can deploy your stage, don't need to login in your account to do it. It's solves a lot of problemas after create a API and update it.
+Remember that API stage are not automated deployed by aws.
+
+Check more informations and how to use in [API Gateway deploy stage](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/apigateway/004_apigateway_deploy_stage.md)
+
 Thanks a lot
