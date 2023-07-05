@@ -14,7 +14,11 @@ Check more informations and how to use in: [NodeJs deploy documentation](https:/
 
 - 3 - Nodejs deploy full pipeline: in this workflow you can restore dependencies, run tests, build sam template and deploy your code with cloudformation. Use this workflow and don't worry about your workflow, just use and let it deploy your code.
 
-Check more information and how to use in: [NodeJs deploy full pipeline](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_pipeline_doc.md)
+Check more information and how to use in: [NodeJs deploy full pipeline documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_pipeline_doc.md)
+
+- 4 - NodeJs deploy npm: in this workflow you can deploy your npm package that you built using nodejs. Remember that NPM_TOKEN is required.
+
+Check more informations and how to use in: [NodeJs npm deploy documentation](https://github.com/PePires58/ReusableWorkflows/blob/main/docs/nodejs/001_nodejs_deploy_npm.md)
 
 # CloudFormation workflows
 
