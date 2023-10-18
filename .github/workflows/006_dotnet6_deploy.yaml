@@ -1,0 +1,67 @@
+on:
+  workflow_call:
+    inputs:
+      aws-region:
+        required: false
+        type: string
+        default: "sa-east-1"
+      stack-name:
+        required: true
+        type: string
+      parameters-file-path:
+        required: true
+        type: string
+      template-file:
+        required: false
+        type: string
+        default: "template.yaml"
+      working-directory:
+        required: false
+        type: string
+        default: src
+    secrets:
+      AWS_BUCKET_DEPLOY:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  Deploy-lambda:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Downloading node_modules
+        uses: actions/download-artifact@v3
+        with:
+          name: publish
+
+      - name: Unzip node_modules
+        run: |
+          unzip publish.zip
+      
+      - name: Check if publish exists
+        run: |
+          ls ${{ inputs.working-directory}}/publish
+
+      - name: Setup AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ inputs.aws-region}}
+      
+      - name: Package
+        run: |
+          sam package --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }} --template-file ${{ inputs.template-file }} --output-template-file deploy.yaml
+        
+      - name: Deploy
+        run: |
+          aws cloudformation deploy --template-file deploy.yaml --stack-name ${{ inputs.stack-name}} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides file://${{ inputs.parameters-file-path}}        
+        
+
+      
+

@@ -1,0 +1,51 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: false
+        type: string
+        default: src
+      execute-unit-tests:
+        required: false
+        type: string
+        default: "true"
+
+jobs:
+  Restore-dependencies-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.x' # ou versão compatível
+
+      - name: Restore dependencies
+        run: cd ${{ inputs.working-directory }} && dotnet restore
+
+      - name: Build solution
+        run: cd ${{ inputs.working-directory }} && dotnet build --configuration Release
+
+      - name: Testing
+        if: ${{ contains(inputs.execute-unit-tests, true) }} 
+        run: |
+          cd ${{ inputs.working-directory }} && dotnet test --configuration Release --no-build
+          
+      - name: Publish application
+        run: cd ${{ inputs.working-directory }} && dotnet publish -c Release -o ./publish
+      
+      - name: Create deployment package
+        run: zip -r publish.zip ./${{ inputs.working-directory }}/publish
+
+      - name: Store node_modules
+        uses: actions/upload-artifact@v3
+        with:
+          name: publish
+          path: ${{inputs.working-directory}}/publish.zip
+        
+
+      
+
