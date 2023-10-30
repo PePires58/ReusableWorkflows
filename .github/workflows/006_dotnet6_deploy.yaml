@@ -34,6 +34,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.x' # ou versão compatível
+
+      - name: Restore dependencies
+        run: cd ${{ inputs.working-directory }} && dotnet restore
+
+      - name: Build solution
+        run: cd ${{ inputs.working-directory }} && dotnet build --configuration Release
+
+      - name: Testing
+        if: ${{ contains(inputs.execute-unit-tests, true) }} 
+        run: |
+          cd ${{ inputs.working-directory }} && dotnet test --configuration Release --no-build
+
       - name: Publish application
         run: cd ${{ inputs.working-directory }} && dotnet publish -c Release -o ./publish
       
