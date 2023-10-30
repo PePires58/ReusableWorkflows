@@ -33,18 +33,6 @@ jobs:
         if: ${{ contains(inputs.execute-unit-tests, true) }} 
         run: |
           cd ${{ inputs.working-directory }} && dotnet test --configuration Release --no-build
-          
-      - name: Publish application
-        run: cd ${{ inputs.working-directory }} && dotnet publish -c Release -o ./publish
-      
-      - name: Create deployment package
-        run: zip -r publish.zip ./${{ inputs.working-directory }}/publish
-
-      - name: Store node_modules
-        uses: actions/upload-artifact@v3
-        with:
-          name: publish
-          path: publish.zip
         
 
       
