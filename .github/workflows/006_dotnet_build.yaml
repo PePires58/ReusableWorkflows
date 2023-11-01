@@ -9,6 +9,10 @@ on:
         required: false
         type: string
         default: "true"
+      dotnet-version:
+        required: false
+        type: string
+        default: '6.0'
 
 jobs:
   Restore-dependencies-and-test:
@@ -21,7 +25,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '6.x' # ou versão compatível
+          dotnet-version: ${{ inputs.dotnet-version }} # ou versão compatível
 
       - name: Restore dependencies
         run: cd ${{ inputs.working-directory }} && dotnet restore

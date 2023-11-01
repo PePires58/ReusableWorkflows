@@ -34,14 +34,14 @@ on:
 jobs:
   
   Build-test-dotnet:
-    uses: PePires58/ReusableWorkflows/.github/workflows/006_dotnet6_build.yaml@main
+    uses: PePires58/ReusableWorkflows/.github/workflows/006_dotnet_build.yaml@main
     with:
       working-directory: ${{ inputs.working-directory }}
       execute-unit-tests: ${{ inputs.execute-unit-tests }}
 
   Deploy-dotnet-api:
     needs: [Build-test-dotnet]
-    uses: PePires58/ReusableWorkflows/.github/workflows/006_dotnet6_deploy.yaml@main
+    uses: PePires58/ReusableWorkflows/.github/workflows/006_dotnet_deploy.yaml@main
     with: 
       aws-region : ${{ inputs.aws-region }}
       stack-name: ${{ inputs.stack-name }}
