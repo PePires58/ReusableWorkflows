@@ -23,6 +23,10 @@ on:
         required: false
         type: string
         default: "template.yaml"
+      dotnet-version:
+        required: false
+        type: string
+        default: '6.0'
     secrets:
       AWS_BUCKET_DEPLOY:
         required: true
@@ -38,6 +42,7 @@ jobs:
     with:
       working-directory: ${{ inputs.working-directory }}
       execute-unit-tests: ${{ inputs.execute-unit-tests }}
+      dotnet-version: ${{ inputs.dotnet-version }}
 
   Deploy-dotnet-api:
     needs: [Build-test-dotnet]
@@ -48,6 +53,7 @@ jobs:
       parameters-file-path: ${{ inputs.parameters-file-path }}
       template-file: ${{ inputs.template-file }}
       working-directory: ${{ inputs.working-directory }}
+      dotnet-version: ${{ inputs.dotnet-version }}
     secrets:
       AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

@@ -19,6 +19,10 @@ on:
         required: false
         type: string
         default: src
+      dotnet-version:
+        required: false
+        type: string
+        default: '6.0'
     secrets:
       AWS_BUCKET_DEPLOY:
         required: true
@@ -37,7 +41,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '6.x' # ou versão compatível
+          dotnet-version: ${{ inputs.dotnet-version }} # ou versão compatível
 
       - name: Restore dependencies
         run: cd ${{ inputs.working-directory }} && dotnet restore
